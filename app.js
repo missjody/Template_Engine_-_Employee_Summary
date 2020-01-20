@@ -157,7 +157,7 @@ const secondPrompt = () => {
         break;
       default:
         // render();
-        fs.appendFile(outputPath, render(employees), function (err) {
+        fs.writeFile(outputPath, render(employees), function (err) {
           if (err) {
             throw err;
           }

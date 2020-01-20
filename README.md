@@ -68,6 +68,22 @@ Email: undefined
 Id: undefined
 Your html has been Rendered!
 
+951
+updated class js files
+? Which type of team member would you like to add now? I don't want to add any more team members, thanks!
+Name: [object Object]
+Email: undefined
+Id: undefined
+Name: [object Object]
+Email: undefined
+Id: undefined
+Name: [object Object]
+Email: undefined
+Id: undefined
+Your html has been Rendered!
+
+Still coming from the Employee class. It's being called incorrectly? Correct number of each now at least 
+
 
 
 
