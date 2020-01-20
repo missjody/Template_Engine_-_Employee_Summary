@@ -1,7 +1,7 @@
 # Unit 10 OOP Homework: Template Engine - Employee Summary
 
 ## To do
-* Make gifts
+* Make gifs
 * Complete ReadMe and todos it currently contains
 * Submit as instructed below
 --------------------------------------------------
