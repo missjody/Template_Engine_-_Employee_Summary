@@ -1,19 +1,20 @@
 ///////
 // required
 
-// const Manager = require("./lib/Manager");
-// const Engineer = require("./lib/Engineer");
-// const Intern = require("./lib/Intern");
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
 
 const inquirer = require("inquirer");
-// const path = require("path");
-// const fs = require("fs");
+const path = require("path");
+const fs = require("fs");
 
-// const outputPath = path.resolve(__dirname, "output", "team.html");
+//where we will be rendering to
+const outputPath = path.resolve(__dirname, "output", "team.html");
 
-// const render = require("./lib/htmlRenderer");
+const render = require("./lib/htmlRenderer");
 
-
+let employees = [];
 ///////
 //reusable function
 
@@ -67,6 +68,20 @@ const engineerStart = () => {
       name: "github"
     }
   ]).then((prompt) => {
+    //create new engineer
+    const newEngineer = new Engineer(prompt);
+
+    //push it to an array of employees? 
+    employees.push(newEngineer);
+
+    //push it through to htmlRenderer?
+    // fs.appendFile(outputPath, render(employees), function (err) {
+    //   if (err) {
+    //     throw err;
+    //   }
+    // });
+
+    //start over again with secondPrompt()
     secondPrompt();
   });
 };
@@ -96,6 +111,16 @@ const internStart = () => {
       name: "school"
     }
   ]).then((prompt) => {
+    const newIntern = new Intern(prompt);
+
+    employees.push(newIntern);
+
+    // fs.appendFile(outputPath, render(employees), function (err) {
+    //   if (err) {
+    //     throw err;
+    //   }
+    // });
+
     secondPrompt();
   });
 };
@@ -104,9 +129,9 @@ const internStart = () => {
 // Sub prompt : I don't wanna
 // break out and generate html
 // console log that it is available to view
-const htmlRenderer = () => {
-  console.log("Your html has been Rendered!");
-};
+// const htmlRenderer = () => {
+//   console.log("Your html has been Rendered!");
+// };
 
 ///////
 // Second Prompt
@@ -131,7 +156,13 @@ const secondPrompt = () => {
         internStart();
         break;
       default:
-        htmlRenderer();
+        // render();
+        fs.appendFile(outputPath, render(employees), function (err) {
+          if (err) {
+            throw err;
+          }
+        });
+        console.log("Your html has been Rendered!");
         break;
     }
   });
@@ -174,7 +205,21 @@ const templateStart = () => {
       name: "action"
     }
   ]).then((prompt) => {
+
+    const newManager = new Manager(prompt);
+    // console.log(newManager);
+    // const manager = new Manager(prompt.name, prompt.id, prompt.email, prompt.officeNumber);
+    // console.log("Manager: " + manager);
     //send prompt to make "new Manager"
+
+    employees.push(newManager);
+
+    // fs.appendFile(outputPath, render(employees), function (err) {
+    //   if (err) {
+    //     throw err;
+    //   }
+    // });
+
     switch (prompt.action) {
       case "Engineer":
         engineerStart();
@@ -183,7 +228,13 @@ const templateStart = () => {
         internStart();
         break;
       default:
-        htmlRenderer();
+        // render();
+        fs.writeFile(outputPath, render(employees), function (err) {
+          if (err) {
+            throw err;
+          }
+        });
+        console.log("Your html has been Rendered!");
         break;
     }
   });
