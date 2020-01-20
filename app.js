@@ -15,24 +15,34 @@ const outputPath = path.resolve(__dirname, "output", "team.html");
 const render = require("./lib/htmlRenderer");
 
 let employees = [];
+let employeeId = [];
+
+
 ///////
 //reusable function
 
-// const validateId = id => (id <=0 || isNaN(id)) ? "Please enter a four digit employee ID number" : true;
+// from bank example we set up on 1/7's review session
+function validateId(input) {
+  if (isNaN(input)) {
+    return "Please enter a four digit employee ID number!";
+  }
+  for (i = 0; i < employeeId.length; i++) {
+    if (input === employeeId[i]) {
+      return "That ID number is already in use!"
+    }
+  }
+  return true;
+}
 
 
 ///////
 // Welcome message
 
-// do we need to set it up that welcomeMessage then calls managerPrompt so that
-// they don't go out of order ever?
-// const welcomeMessage = 
 console.log("Please build your engineering team: ");
 
 
 ///////
 // various options 
-
 
 // > If Engineer
 //    call Engineer prompts engineerStart()
@@ -55,7 +65,8 @@ const engineerStart = () => {
     {
       type: "number",
       message: "What is your engineer's ID number?",
-      name: "id"
+      name: "id",
+      validate: validateId
     },
     {
       type: "input",
@@ -69,17 +80,11 @@ const engineerStart = () => {
     }
   ]).then((prompt) => {
     //create new engineer
-    const newEngineer = new Engineer(prompt);
+    const newEngineer = new Engineer(prompt.name, prompt.id, prompt.email, prompt.github);
 
-    //push it to an array of employees? 
+    //push it to an array of employees
     employees.push(newEngineer);
-
-    //push it through to htmlRenderer?
-    // fs.appendFile(outputPath, render(employees), function (err) {
-    //   if (err) {
-    //     throw err;
-    //   }
-    // });
+    employeeId.push(prompt.id);
 
     //start over again with secondPrompt()
     secondPrompt();
@@ -98,7 +103,8 @@ const internStart = () => {
     {
       type: "number",
       message: "What is your interns's ID number?",
-      name: "id"
+      name: "id",
+      validate: validateId
     },
     {
       type: "input",
@@ -111,27 +117,15 @@ const internStart = () => {
       name: "school"
     }
   ]).then((prompt) => {
-    const newIntern = new Intern(prompt);
+    const newIntern = new Intern(prompt.name, prompt.id, prompt.email, prompt.school);
 
     employees.push(newIntern);
-
-    // fs.appendFile(outputPath, render(employees), function (err) {
-    //   if (err) {
-    //     throw err;
-    //   }
-    // });
+    employeeId.push(prompt.id);
 
     secondPrompt();
   });
 };
 
-
-// Sub prompt : I don't wanna
-// break out and generate html
-// console log that it is available to view
-// const htmlRenderer = () => {
-//   console.log("Your html has been Rendered!");
-// };
 
 ///////
 // Second Prompt
@@ -162,7 +156,7 @@ const secondPrompt = () => {
             throw err;
           }
         });
-        console.log("Your html has been Rendered!");
+        console.log("Your html has been rendered! Head over to the Output folder!");
         break;
     }
   });
@@ -183,8 +177,9 @@ const templateStart = () => {
     {
       type: "number",
       message: "What is your manager's ID number?",
-      name: "id"
+      name: "id",
       //validate: function()
+      validate: validateId
     },
     //takes in email
     {
@@ -206,19 +201,10 @@ const templateStart = () => {
     }
   ]).then((prompt) => {
 
-    const newManager = new Manager(prompt);
-    // console.log(newManager);
-    // const manager = new Manager(prompt.name, prompt.id, prompt.email, prompt.officeNumber);
-    // console.log("Manager: " + manager);
-    //send prompt to make "new Manager"
+    const newManager = new Manager(prompt.name, prompt.id, prompt.email, prompt.officeNumber);
 
     employees.push(newManager);
-
-    // fs.appendFile(outputPath, render(employees), function (err) {
-    //   if (err) {
-    //     throw err;
-    //   }
-    // });
+    employeeId.push(prompt.id);
 
     switch (prompt.action) {
       case "Engineer":
@@ -234,7 +220,7 @@ const templateStart = () => {
             throw err;
           }
         });
-        console.log("Your html has been Rendered!");
+        console.log("Your html has been rendered! Head over to the Output folder!");
         break;
     }
   });
