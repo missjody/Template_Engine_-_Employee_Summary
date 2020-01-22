@@ -1,11 +1,7 @@
 # Unit 10 OOP Homework: Template Engine - Employee Summary
 
-## To do
-* Make gifs
-* Complete ReadMe and todos it currently contains
-* Submit as instructed below
---------------------------------------------------
 
+## Creating a template engine
 
 ```
 As a manager
@@ -13,39 +9,8 @@ I want to generate a webpage that displays my team's basic info
 so that I have quick access to emails and GitHub profiles
 ```
 
-* Inquirer
-* Node CLI
-* Running and passing tests using TDD
-  1. Run tests
-  2. Create or update classes to pass a single test case
-  3. Repeat
+This CLI is a great tool for creating a quick, easy to reference html page that displays your teams pertinant information. Using Inquirer and test driven development I was able to set up a set of files that connected to the provided front end files to generate user profile cards from user input. Utilizing Jest allowed me to test after each portion of code was completed on my class and subclass constructors. 
 
-  Screenshot of all tests passed
-* Connecting it to the files we were provided
-* Jest
+## Gifs of working application
 
-It is recommended that you start with a directory structure that looks like this:
-
-```
-lib/           // classes and helper code
-output/        // rendered output
-templates/     // HTML template(s)
-test/          // jest tests
-  Employee.test.js
-  Engineer.test.js
-  Intern.test.js
-  Manager.test.js
-app.js         // Runs the application
-```
-
-* Classes and subclasses
-* Gif of working application
-* Roster output
-* Validation
-* Link to updated profile featuring this application
-
-
-## DON"T FORGET TO SUBMIT WITH:
-* Link to github
-* Link to GIF
-* Link to readme
+![Demonstration Gif](./output/programgif.gif)
