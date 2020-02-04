@@ -13,4 +13,4 @@ This CLI is a great tool for creating a quick, easy to reference html page that 
 
 ## Gifs of working application
 
-![Demonstration Gif](./output/programgif.gif)
+![Demonstration Gif](./output/programgifsmol.gif)
